@@ -11,6 +11,7 @@
 @media(min-width:800px){.main{padding:24px 30px 110px}.hero{min-height:260px}.quickgrid .tile{min-height:130px}.tile strong{font-size:16px}.tile small{font-size:13px}}
 @media(max-width:620px){.topbar{padding:13px 14px}.brandmark{width:40px;height:40px;font-size:23px;border-radius:13px}.brandname{font-size:22px}.tagline{font-size:9px}.topactions{gap:8px}.userbtn{gap:6px}.userbtn .hello{display:none}.main{padding:14px 12px 100px}.hero{min-height:218px;padding:21px 18px;border-radius:17px}.hero-copy{max-width:67%}.hero h1{font-size:29px}.hero p{font-size:13px;max-width:230px}.hero .primary{font-size:12px;padding:11px 13px}.hero-art{right:1%;width:35%;transform:scale(.82)}.phone-art{width:110px;height:160px}.megaphone{font-size:48px;right:-5px}.coin{width:34px;height:34px;font-size:18px}.quickgrid{gap:9px}.tile{padding:12px;gap:8px;min-height:104px;border-radius:15px}.tile .tileicon{font-size:26px}.tile strong{font-size:13px;margin:3px 0 6px}.tile small{font-size:10px}.tile .arrow{width:23px;height:23px}.quickgrid .tile:nth-child(4),.quickgrid .tile:nth-child(5){min-height:94px}.balance{padding:14px}.walleticon{width:51px;height:51px;font-size:27px}.balance .amount{font-size:26px}.balance .label{font-size:12px}.withdraw{padding:10px 12px;font-size:12px}.earningstrip{padding:10px 7px;gap:4px}.earning{gap:5px;align-items:flex-start;flex-direction:column}.miniicon{width:32px;height:32px;font-size:16px}.earning small{font-size:10px}.earning strong{font-size:13px}.panel{padding:13px;border-radius:16px}.sectionhead h2{font-size:16px}.refinputrow{gap:6px}.refinput{padding:10px;font-size:12px}.copybtn{padding:0 11px;font-size:12px}.refstats{gap:4px}.stat{padding:0 3px;gap:4px;align-items:flex-start;flex-direction:column}.stat .sicon{font-size:18px}.stat small{font-size:9px}.stat strong{font-size:12px}.surveyrow{padding:9px;gap:8px}.surveyico{width:40px;height:40px;font-size:20px}.surveyinfo strong{font-size:12px}.surveyinfo small{font-size:10px}.takebtn{padding:9px 10px;font-size:10px}.bottomnav{padding-top:7px}.navbtn{font-size:10px;padding:5px 5px;min-width:45px}.navbtn span{font-size:20px}.twocol{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.methodgrid{grid-template-columns:1fr}.page-title{font-size:22px}}
 </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <div class="app">
@@ -95,5 +96,16 @@ $('#closeModal').addEventListener('click',closeModal);$('#modalOk').addEventList
 render();
 })();
 </script>
+  <script>
+  const SUPABASE_URL = "https://galyidfsiylldrexaoxq.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "‎sb_publishable_zLMjkwn5cvquCbZUpd6-2A_HthWlTyX";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  console.log("EarnPlus Supabase client initialized");
+  </script>
 </body>
 </html>
