@@ -142,6 +142,135 @@ render();
   <p id="account-message" role="status" aria-live="polite"
     style="margin-top:16px;overflow-wrap:anywhere;"></p>
 </section>
+
+<script>
+  // EarnPlus registration and login
+  const accountMessage = document.getElementById("account-message");
+  const registerButton = document.getElementById("register-button");
+  const loginButton = document.getElementById("login-button");
+  const logoutButton = document.getElementById("logout-button");
+
+  function showAccountMessage(message) {
+    accountMessage.textContent = message;
+  }
+
+  function setAccountButtons(isLoggedIn) {
+    registerButton.hidden = isLoggedIn;
+    loginButton.hidden = isLoggedIn;
+    logoutButton.hidden = !isLoggedIn;
+  }
+
+  // Register a new user
+  registerButton.addEventListener("click", async function () {
+    const name = document.getElementById("account-name").value.trim();
+    const email = document.getElementById("account-email").value.trim();
+    const password = document.getElementById("account-password").value;
+
+    if (!name || !email || !password) {
+      showAccountMessage("Please enter your name, email and password.");
+      return;
+    }
+
+    if (password.length < 6) {
+      showAccountMessage("Your password must be at least 6 characters.");
+      return;
+    }
+
+    registerButton.disabled = true;
+    showAccountMessage("Creating your account...");
+
+    try {
+      const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: { display_name: name }
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.session) {
+        setAccountButtons(true);
+        showAccountMessage("Registration successful! You are now logged in.");
+      } else {
+        showAccountMessage(
+          "Registration submitted! Check your email to confirm your account, then log in."
+        );
+      }
+    } catch (error) {
+      showAccountMessage("Registration failed: " + error.message);
+    } finally {
+      registerButton.disabled = false;
+    }
+  });
+
+  // Log in an existing user
+  loginButton.addEventListener("click", async function () {
+    const email = document.getElementById("account-email").value.trim();
+    const password = document.getElementById("account-password").value;
+
+    if (!email || !password) {
+      showAccountMessage("Enter your email and password.");
+      return;
+    }
+
+    loginButton.disabled = true;
+    showAccountMessage("Logging in...");
+
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) throw error;
+
+      setAccountButtons(true);
+      document.getElementById("account-name").value =
+        data.user.user_metadata?.display_name || "";
+
+      showAccountMessage("Welcome back! You are logged in.");
+    } catch (error) {
+      showAccountMessage("Login failed: " + error.message);
+    } finally {
+      loginButton.disabled = false;
+    }
+  });
+
+  // Log out
+  logoutButton.addEventListener("click", async function () {
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+      showAccountMessage("Logout failed: " + error.message);
+      return;
+    }
+
+    setAccountButtons(false);
+    showAccountMessage("You have logged out.");
+  });
+
+  // Restore the existing login session when the page opens
+  async function restoreAccountSession() {
+    const { data, error } = await supabaseClient.auth.getSession();
+
+    if (error) {
+      showAccountMessage("Could not check your session: " + error.message);
+      return;
+    }
+
+    setAccountButtons(!!data.session);
+
+    if (data.session) {
+      document.getElementById("account-name").value =
+        data.session.user.user_metadata?.display_name || "";
+      showAccountMessage("You are logged in.");
+    }
+  }
+
+  restoreAccountSession();
+    </script>
   
 </body>
 </html>
