@@ -99,7 +99,15 @@ render();
   <script>
   const SUPABASE_URL = "https://galyidfsiylldrexaoxq.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "‎sb_publishable_zLMjkwn5cvquCbZUpd6-2A_HthWlTyX";
+console.log(
+  "URL non-ASCII:",
+  [...SUPABASE_URL].some(c => c.charCodeAt(0) > 255)
+);
 
+console.log(
+  "Key non-ASCII:",
+  [...SUPABASE_PUBLISHABLE_KEY].some(c => c.charCodeAt(0) > 255)
+);
   const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
