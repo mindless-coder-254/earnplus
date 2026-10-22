@@ -112,7 +112,20 @@ console.log(
   "URL non-ASCII:",
   [...SUPABASE_URL].some(c => c.charCodeAt(0) > 255)
 );
+console.log(
+  "Key length:",
+  SUPABASE_PUBLISHABLE_KEY.length
+);
 
+console.log(
+  "Key first character code:",
+  SUPABASE_PUBLISHABLE_KEY.charCodeAt(0)
+);
+
+console.log(
+  "Key contains spaces:",
+  /\s/.test(SUPABASE_PUBLISHABLE_KEY)
+);
 console.log(
   "Key non-ASCII:",
   [...SUPABASE_PUBLISHABLE_KEY].some(c => c.charCodeAt(0) > 255)
