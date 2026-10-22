@@ -99,6 +99,15 @@ render();
   <script>
   const SUPABASE_URL = "https://galyidfsiylldrexaoxq.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "‎sb_publishable_zLMjkwn5cvquCbZUpd6-2A_HthWlTyX";
+    console.log(
+  "URL check:",
+  [...SUPABASE_URL].some(c => c.charCodeAt(0) > 255)
+);
+
+console.log(
+  "Key check:",
+  [...SUPABASE_PUBLISHABLE_KEY].some(c => c.charCodeAt(0) > 255)
+);
 console.log(
   "URL non-ASCII:",
   [...SUPABASE_URL].some(c => c.charCodeAt(0) > 255)
